@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@100;200;300;400;500;600;700;800;900&family=Ibarra+Real+Nova&family=Kameron:wght@400;500;600;700&family=Montserrat:wght@100;300;400;500;600;700;800;900&family=Poppins:wght@100;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Register & Login</title>
+</head>
+<body class="bg-putih-0">
+<section class="w-full flex flex-col h-screen justify-center items-center pb-10 pt-10 px-5 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto">
+  <div class="absolute w-full bg-hitam-0 left-0 h-screen -z-[10]">
+    
+  </div>
+  
+  <main class="w-full h-full flex flex-col justify-center items-center">
+    <h1 class="mx-auto text-center font-utama text-putih-0 font-bold text-4xl mb-11 drop-shadow-md">Dokter<span class="text-primary-0">in</span></h1>
+
+    <!-- <form id="registerForm">
+      <label for="username">Username:</label>
+      <input type="text" id="regUsername" required><br><br>
+  
+      <label for="password">Password:</label>
+      <input type="password" id="regPassword" required><br><br>
+  
+      <input type="submit" value="Register">
+    </form> -->
+    <!-- Register -->
+    <div id="sec-reg" class="w-full max-w-xs sm:max-w-md bg-white rounded-lg shadow-md p-6 md:py-9">
+      <h2 class="text-2xl font-bold mb-4 text-hitam-0">Register</h2>
+      <form id="registerForm" class="flex flex-col">
+        <input placeholder="Username" class="bg-gray-200 text-hitam-0 font-utama border-0 rounded-md p-2 mb-4 focus:outline-none focus:ring-1 focus:ring-primary-0 transition ease-in-out duration-150" type="text" id="regUsername" required>
+        <input placeholder="Password" class="bg-gray-200 text-hitam-0 font-utama border-0 rounded-md p-2 mb-4 focus:outline-none focus:ring-1 focus:ring-primary-0 transition ease-in-out duration-150" type="password" id="regPassword" required>
+        <div class="flex items-center justify-between flex-wrap">
+          <p class="text-hitam-0 mt-4 font-utama font-medium text-sm"> Sudah mempunyai akun? <span id="btn-login" class="text-sm text-primary-0 -200 hover:underline mt-4 cursor-pointer">login</span></p>
+        </div>
+        <input class="bg-primary-0 text-putih-0 cursor-pointer font-utama font-bold py-2 px-4 rounded-md mt-4 hover:bg-primary-0" type="submit" value="Register"></input>
+      </form>
+    </div>
+    
+    <!-- Login -->
+    <div id="sec-log" class="w-full max-w-xs sm:max-w-md bg-white rounded-lg shadow-md p-6 md:py-9 hidden">
+      <h2 class="text-2xl font-bold mb-4 text-hitam-0">Login</h2>
+      <form id="loginForm" class="flex flex-col">
+        <input placeholder="Username" class="bg-gray-200 text-hitam-0 font-utama border-0 rounded-md p-2 mb-4 focus:outline-none focus:ring-1 focus:ring-primary-0 transition ease-in-out duration-150" type="text" id="loginUsername" required>
+        <input placeholder="Password" class="bg-gray-200 text-hitam-0 font-utama border-0 rounded-md p-2 mb-4 focus:outline-none focus:ring-1 focus:ring-primary-0 transition ease-in-out duration-150" type="password" id="loginPassword" required>
+        <div class="flex items-center justify-between flex-wrap">
+          <p class="text-hitam-0 mt-4 font-utama font-medium text-sm"> Belum mempunyai akun? <span id="btn-register" class="text-sm text-primary-0 -200 hover:underline mt-4 cursor-pointer">Register</span></p>
+        </div>
+        <input class="bg-primary-0 text-putih-0 cursor-pointer font-utama font-bold py-2 px-4 rounded-md mt-4 hover:bg-primary-0" type="submit" value="Login"></input>
+      </form>
+    </div>
+
+  </main>
+
+
+
+  <!-- <form id="loginForm" class="hidden">
+    <label for="username">Username:</label>
+    <input type="text" id="loginUsername" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="loginPassword" required><br><br>
+
+    <input type="submit" value="Login">
+  </form> -->
+</section>
+
+  
+
+  <script>
+    
+    const secReg = document.getElementById("sec-reg")
+    const secLog = document.getElementById("sec-log") 
+
+    const btnLogin = document.getElementById("btn-login")
+    const btnRegister = document.getElementById("btn-register")
+
+    btnLogin.addEventListener("click" , ()=> {
+      secReg.classList.toggle("hidden")
+      secLog.classList.toggle("hidden")
+    })
+    
+    btnRegister.addEventListener("click" , ()=> {
+      secReg.classList.toggle("hidden")
+      secLog.classList.toggle("hidden")
+    })
+
+    // Fungsi untuk menyimpan data pengguna ke localStorage
+    function saveUsersToLocalStorage(users) {
+      localStorage.setItem('users', JSON.stringify(users));
+    }
+
+    // Fungsi untuk mendapatkan data pengguna dari localStorage
+    function getUsersFromLocalStorage() {
+      const usersString = localStorage.getItem('users');
+      return usersString ? JSON.parse(usersString) : [];
+    }
+
+    let users = getUsersFromLocalStorage();
+
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+
+      let username = document.getElementById('regUsername').value;
+      let password = document.getElementById('regPassword').value;
+
+      if (users.some(user => user.username === username)) {
+        alert('Username sudah digunakan. Silakan gunakan username lain.');
+      } else {
+        users.push({ username, password });
+        saveUsersToLocalStorage(users); // Simpan data pengguna ke localStorage
+        // alert('Registrasi berhasil!');
+        secReg.classList.toggle("hidden")
+        secLog.classList.toggle("hidden")
+        console.log(users);
+      }
+
+      document.getElementById('registerForm').reset();
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      let username = document.getElementById('loginUsername').value;
+      let password = document.getElementById('loginPassword').value;
+
+      let user = users.find(user => user.username === username && user.password === password);
+
+      if (user) {
+        // alert('Login berhasil!');
+        // Set data pengguna yang login ke localStorage
+        localStorage.setItem('loggedInUser', JSON.stringify(user));
+        window.location.href = 'third.html';
+      } else {
+        alert('Login gagal. Periksa kembali username dan password Anda.');
+      }
+
+      document.getElementById('loginForm').reset();
+    });
+
+  </script>
+
+
+</body>
+</html>
